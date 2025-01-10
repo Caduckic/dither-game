@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Web",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000/build_web/raylib-game-template/${command:cmake.launchTargetFilename}",
+            "preLaunchTask": "StartServer",
+            "trace": true
+        },
+        {
+            "name": "Launch Desktop",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build_desktop/raylib-game-template/${command:cmake.launchTargetFilename}",
+            "cwd": "."
+        }
+    ]
+}
