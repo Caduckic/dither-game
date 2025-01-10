@@ -9,7 +9,7 @@
 #define RLIGHTS_IMPLEMENTATION
 #include "../include/rlights.h"
 
-PlayState::PlayState() : level3D {{0.0f, 0.0f, 0.0f}, "resources/models/test-level/basic-test-level.obj"} {
+PlayState::PlayState() : level3D {{0.0f, 0.0f, 0.0f}, "resources/models/test-level/basic-test-level.obj"}, player3D{} {
     init();
 }
 

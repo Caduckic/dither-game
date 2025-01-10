@@ -157,14 +157,20 @@ void Player3D::update() {
     if (IsKeyPressed(KEY_SPACE))
         velY = 3.0f;
 
-    std::cout << "velY: " << velY << ", PlayerPos: x " << position.x << ", y" << position.y << ", z" << position.z << '\n';
+    // std::cout << "velY: " << velY << ", PlayerPos: x " << position.x << ", y" << position.y << ", z" << position.z << '\n';
+    std::cout << "camera: x " << camera.target.x << ", y" << camera.target.y << ", z" << camera.target.z << '\n';
     // apply gravity
     float gravity = 9.8f;
     velY -= gravity * GetFrameTime();
 
-    position.y += velY * GetFrameTime();
-    camera.position.y += velY * GetFrameTime();
-    camera.target.y += velY * GetFrameTime();
+    // prevent the player from moving through the floor at low framerates
+    float yMovement = velY * GetFrameTime();
+    if (yMovement >= groundCheckHeight)
+        yMovement = groundCheckHeight - 0.01;
+
+    position.y += yMovement;
+    camera.position.y += yMovement;
+    camera.target.y += yMovement;
 
     // sets the last forward so the collisions later will correctly set the camera target
     lastCamForward = Vector3Subtract(camera.target, camera.position);
