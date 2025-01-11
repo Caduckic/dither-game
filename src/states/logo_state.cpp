@@ -3,6 +3,7 @@
 // pretty much a copy of the intro in ray's template but in a class and with a camera for a fixed scale and position
 
 LogoState::LogoState() {
+    currentState = LOGO_STATE;
     framesCounter = 0;
     lettersCount = 0;
 

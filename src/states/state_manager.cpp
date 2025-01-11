@@ -73,6 +73,27 @@ void StateManager::update(Camera2D& camera2D, Camera3D& camera3D) {
 
     if (popCurrentState)
         popState();
+
+    bool reloadCurrentState = states.back()->shouldStateReload();
+    if (reloadCurrentState) {
+        StateType currentState = states.back()->getCurrentState();
+        popState();
+        
+        switch (currentState)
+        {
+        case LOGO_STATE:
+            pushState(std::make_shared<LogoState>());
+            break;
+        case MENU_STATE:
+            pushState(std::make_shared<MenuState>());
+            break;
+        case PLAY_STATE:
+            pushState(std::make_shared<PlayState>());
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void StateManager::render(const Camera2D& camera2D, const Camera3D& camera3D) const {

@@ -10,6 +10,7 @@ MenuState::MenuState() {
 MenuState::~MenuState() = default;
 
 void MenuState::init() {
+    currentState = MENU_STATE;
     reverseInit = true;
     nextState = NO_STATE;
     stateRender = true;

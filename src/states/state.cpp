@@ -10,6 +10,10 @@ State::~State() = default;
 void State::init() {};
 void State::deInit() {};
 
+StateType State::getCurrentState() const {
+    return currentState;
+}
+
 StateType State::getNextState() const {
     return nextState;
 }
@@ -24,4 +28,8 @@ bool State::isReverseInit() const {
 
 bool State::shouldStatePop() const {
     return popState;
+}
+
+bool State::shouldStateReload() const {
+    return reloadState;
 }

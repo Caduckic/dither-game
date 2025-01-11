@@ -16,10 +16,12 @@ enum StateType {
 
 class State {
 protected:
+    StateType currentState = NO_STATE;
     StateType nextState = NO_STATE;
     bool stateRender = true;
     bool reverseInit = false;
     bool popState = false;
+    bool reloadState = false;
 
     void PopSelf();
 public:
@@ -31,6 +33,8 @@ public:
     virtual void update(Camera2D& camera2D, Camera3D& camera3D) = 0;
     virtual void render(const Camera2D& camera2D, const Camera3D& camera3D) = 0;
     
+    StateType getCurrentState() const;
+
     StateType getNextState() const;
 
     bool shouldStateRender() const;
@@ -38,6 +42,8 @@ public:
     bool isReverseInit() const;
 
     bool shouldStatePop() const;
+
+    bool shouldStateReload() const;
 };
 
 class LogoState : public State {

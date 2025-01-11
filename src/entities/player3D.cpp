@@ -3,10 +3,18 @@
 #include "player3D.h"
 #include "raymath.h"
 
+Vector3 Vector3AddX(const Vector3 a, const Vector3 b) {
+    return {
+        a.x + b.x,
+        a.y + b.y,
+        a.z + b.z
+    };
+}
+
 void Player3D::setPosition(Vector3 pos) {
     position = pos;
-    camera.position = Vector3Add(position, {0.0f, size.y, 0.0f});
-    camera.target = Vector3Add(camera.position, lastCamForward);
+    camera.position = Vector3AddX(position, {0.0f, size.y, 0.0f});
+    camera.target = Vector3AddX(camera.position, lastCamForward);
 }
 
 // loops for every mesh we check angles around the player for walls
@@ -40,7 +48,7 @@ void Player3D::applyModelXZCollisionPosition(const std::shared_ptr<Model> model,
 void Player3D::applyModelYCollisionPosition(const std::shared_ptr<Model> model, unsigned int meshIndex) {
     Ray floorRay;
     floorRay.direction = {0.0f, -1.0f, 0.0f};
-    floorRay.position = Vector3Add(position, {0.0f, groundCheckHeight, 0.0f});
+    floorRay.position = Vector3AddX(position, {0.0f, groundCheckHeight, 0.0f});
 
     RayCollision floorRayCol = GetRayCollisionMesh(floorRay, model->meshes[meshIndex], model->transform);
 
@@ -88,10 +96,11 @@ void Player3D::init() {
     yaw = 0.0f;
     pitch = 0.0f;
 
-    setPosition({0.0f, 0.0f, 0.0f});
+    size = {0.5f, 1.0f, 0.5f};
+    position = {0.0f, 0.0f, 0.0f};
+    camera.position = Vector3AddX(position, {0.0f, size.y, 0.0f});
 
     lastCamForward = Vector3Subtract(camera.target, camera.position);
-    size = {0.5f, 1.0f, 0.5f};
     speed = 3.0f;
     mouseSensitivity = 0.1f;
 
@@ -158,7 +167,7 @@ void Player3D::update() {
         velY = 3.0f;
 
     // std::cout << "velY: " << velY << ", PlayerPos: x " << position.x << ", y" << position.y << ", z" << position.z << '\n';
-    std::cout << "camera: x " << camera.target.x << ", y" << camera.target.y << ", z" << camera.target.z << '\n';
+    // std::cout << "camera: x " << camera.target.x << ", y" << camera.target.y << ", z" << camera.target.z << '\n';
     // apply gravity
     float gravity = 9.8f;
     velY -= gravity * GetFrameTime();

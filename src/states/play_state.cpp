@@ -9,13 +9,14 @@
 #define RLIGHTS_IMPLEMENTATION
 #include "../include/rlights.h"
 
-PlayState::PlayState() : level3D {{0.0f, 0.0f, 0.0f}, "resources/models/test-level/basic-test-level.obj"}, player3D{} {
+PlayState::PlayState() : level3D {{0.0f, 0.0f, 0.0f}, "resources/models/test-level/basic-test-level.obj"} {
     init();
 }
 
 PlayState::~PlayState() = default;
 
 void PlayState::init() {
+    currentState = PLAY_STATE;
     // loading and setting up the frameBuffer render texture
     renderDiv = 4;
     lastResWidth = GetScreenWidth()/renderDiv;
@@ -99,6 +100,7 @@ void PlayState::init() {
         imageFlipShader = LoadShader("resources/shaders/lighting.vs", "resources/shaders/flip.fs");
         grayMaskShader = LoadShader("resources/shaders/lighting.vs", "resources/shaders/grayMask.fs");
     #endif
+    std::cout << player3D.getCamera().target.x << '\n';
 }
 
 // unloads the frameBuffer, shaders and the model
